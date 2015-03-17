@@ -1,0 +1,40 @@
+        #pitch-modal-data {
+             display: none;            
+        }
+
+        .modal-container{
+             min-width: 300px;        
+             height: auto;        
+             border:1px solid #000;
+             border-radius: 5px;
+             margin: 0 15px;
+             padding: 5px;
+             text-align:center;
+             background-color: #fff;
+        }
+
+        .modal-header{
+        		display: block;
+        		padding: 5px 0;
+        		background-color: yellow;
+        }
+        
+        .modal-body ul{text-align:center;}
+		.modal-body ul li{overflow: auto;white-space: nowrap;height: 37px;}
+		.modal-body ul li a{text-decoration: none;display: block;line-height: 36px;border-bottom: 1px solid #c2c2c2;}
+
+		.modal-footer{position:absolute;width:90%;padding:0 5%;color:#000}
+		.modal-footer h5{color:#C1272D;line-height:30px;text-align:center;}
+    		.modal-footer h6{color:#666;font-size:13px;line-height:20px;text-align:center}
+        
+        .modal-close-Img{
+            background:url(http://sandbox.runjs.cn/uploads/rs/340/1nauyitv/x.png) no-repeat; 
+            width:25px;
+            height:29px; 
+            display:inline;
+            z-index:2; 
+            position:absolute; 
+            top:-15px; 
+            right:-16px; 
+            cursor:pointer;
+        }
