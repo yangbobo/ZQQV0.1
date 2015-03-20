@@ -245,8 +245,30 @@ class WechatRequest{
     public static function eventClick(&$request){
 		//获取该分类的信息
         $eventKey = $request['eventkey'];
-        $content = '收到点击菜单事件，您设置的key是' . $eventKey;
-        return ResponsePassive::text($request['fromusername'], $request['tousername'], $content);
+		$content = array();
+		switch ($eventKey){
+           case "COURT_SVRS"://点击[球场服务]
+	   		   $content[] = array("Title"=>"关于我们", "Description"=>"", "PicUrl"=>"http://www.xishuma.com/fb55/imgs/weixinmenu/aboutimg.jpg", "Url" =>"http://www.xishuma.com/fb55/clicks/pitchsvr/about.php");
+	           $content[] = array("Title"=>"球场介绍", "Description"=>"", "PicUrl"=>"", "Url" =>"http://www.xishuma.com/fb55/clicks/pitchsvr/courtIntro.php?oid=".$request['fromusername']);
+               break;
+           case "COURT_ORDR"://点击[预约比赛]
+               $content[] = array("Title"=>"组织比赛", "Description"=>"", "PicUrl"=>"http://www.xishuma.com/fb55/imgs/weixinmenu/organmatch.jpg", "Url" =>"http://www.xishuma.com/fb55/clicks/match/organMatch.php");
+	   		   $content[] = array("Title"=>"参加比赛", "Description"=>"", "PicUrl"=>"http://www.xishuma.com/fb55/imgs/weixinmenu/findmatch.jpg", "Url" =>"http://www.xishuma.com/fb55/clicks/match/matchList.php");
+	   		   $content[] = array("Title"=>"我的比赛", "Description"=>"", "PicUrl"=>"http://www.xishuma.com/fb55/imgs/weixinmenu/mymatch.jpg", "Url" =>"http://www.xishuma.com/fb55/clicks/match/myMatch.php");
+               break;
+		   case "PERSON_INFO"://点击[我的信息]
+		   	   $userType = UserManage::getGroupByOpenId($request['fromusername']);
+			   $content[] = array("Title"=>"我的信息", "Description"=>$userType, "PicUrl"=>"http://discuz.comli.com/weixin/weather/icon/cartoon.jpg", "Url" =>"http://www.xishuma.com/fb55/ucenter/userInfo.php");
+	   		   $content[] = array("Title"=>"战力积分", "Description"=>"", "PicUrl"=>"http://d.hiphotos.bdimg.com/wisegame/pic/item/f3529822720e0cf3ac9f1ada0846f21fbe09aaa3.jpg", "Url" =>"http://www.xishuma.com/test");
+		       break;
+           default:
+               break;
+       }
+	   $itemList = array();
+	   foreach ($content as $tuwen) {
+    		    $itemList[] = ResponsePassive::newsItem($tuwen['Title'], $tuwen['Description'], $tuwen['PicUrl'], $tuwen['Url']);
+	   }
+	   return ResponsePassive::news($request['fromusername'],$request['tousername'], $itemList);
     }
 
     /**
